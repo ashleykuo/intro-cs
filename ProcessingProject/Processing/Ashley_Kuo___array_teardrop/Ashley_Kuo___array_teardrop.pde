@@ -1,40 +1,36 @@
-float x = random(0, 700);
-
-float[] tearDropX = new float[100];
-float[] tearDropY = new float[100];
+float[] tearsX = new float[10];
+float[] tearsY = new float[10];
+float puddleSize = 0;
 
 void setup() {
-  size(500, 500);
-  background(#16306F);
-  tearDrop(x, 100);
-  tearDrop(x, 150);
-  tearDrop(x, 200);
-  tearDrop(x, 250);
-  tearDrop(x, 300);
-  tearDrop(x, 350);
-  tearDrop(x, 400);
-  tearDrop(x, 450);
-  tearDrop(x, 500);
-  tearDrop(x, 550);
-  x = random(0, width);
-  for (int i = 0; i < 100; i++) {
-    float x = random(0, width);
-    float y = random(0, height);
-    tearDropX[i] = x;
-    tearDropY[i] = y;
+  
+  size(700, 700);
+  for(int i = 0; i < tearsX.length; i++) {
+    tearsX[i] = random(0, width);
+    tearsY[i] = random(0, height);
   }
+  
 }
 
 void draw() {
-  noStroke();
-  for(int i = 0; i < 100; i++) {
-    point(tearDropX[i], tearDropY[i]);
+  background(0);
+  for(int i = 0; i < tearsX.length; i++) {
+    tearsY[i] += 1;
+    if(tearsY[i] >= height) {
+      tearsY[i] = 0;
+      puddleSize++;
+    }
+    teardrop(tearsX[i], tearsY[i], 20);
+    
   }
+  ellipse(width/2, height - 20, width, puddleSize);
+  text(puddleSize, 20, 20);
 }
-void tearDrop(float x, float y) {
-  noStroke();
-  fill(#C1E3F5);
-  arc(x, y, 20, 20,
-    radians(0), radians(180), OPEN);
-  triangle(x-10, y, x, y-20, x+10, y);
+
+
+
+void teardrop(float x, float y, float w) {
+  triangle(x-w/2, y, x, y-1.5*w, x+w/2, y);
+  arc(x, y, w, w, radians(-3), radians(183), OPEN);
+
 }
