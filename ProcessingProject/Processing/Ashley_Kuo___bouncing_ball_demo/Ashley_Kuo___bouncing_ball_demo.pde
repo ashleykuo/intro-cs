@@ -1,5 +1,5 @@
 float circleY = 0;
-float speedY = 1;
+float speed = 1;
 
 void setup() {
   size (500, 500);
